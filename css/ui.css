@@ -1,0 +1,212 @@
+:root {
+  --base-color: white;
+  --hover-color: black;
+  --background-color: #191919;
+  --modal-background-color: #292929;
+  --body-font-family: "Russo One";
+  --button-label-font-family: "Russo One";
+  --upgrade-button-width: 400px;
+  --upgrade-row-width: 580px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  text-align: center;
+}
+
+#root {
+  margin-top: 80px;
+  display: flex;
+  margin-bottom: 110px;
+  user-select: none;
+}
+
+#body {
+  background-color: var(--background-color);
+  color: white;
+  font-family: var(--body-font-family);
+}
+
+.primary-bot-marker:before {
+  content: "•";
+  padding-left: 7px;
+}
+
+
+/* CONTENT SPLITS */
+#leftSplit {
+  flex-direction: column;
+  width: fit-content;
+  padding-right: 40px;
+}
+
+#rightSplit {
+  width: var(--upgrade-row-width);
+}
+
+#leftUpgrades {
+  width: var(--upgrade-row-width);
+}
+
+#rightUpgrades {
+  width: var(--upgrade-row-width);
+}
+
+#leftUpgrade h2 {
+  width: var(--upgrade-button-width);
+  text-align: center;
+}
+
+#rightUpgrade h2 {
+  width: var(--upgrade-button-width);
+  text-align: center;
+}
+
+#devSplit {
+  display: none;
+}
+
+/* MAZE */
+#maze {
+  border-collapse: collapse;
+  border: 0px;
+  user-select: none;
+}
+
+#maze td {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-collapse: collapse;
+  min-width: 24px;
+  min-height: 24px;
+  max-width: 24px;
+  max-height: 24px;
+}
+
+/* TOGGLES PANEL */
+#togglesPanel {
+  border: black 5px solid;
+  width: 200px;
+  padding: 8px;
+  display: none;
+}
+#togglesPanel > h3 {
+  margin: 5px;
+}
+#togglesPanel > label {
+  padding-bottom: 3px;
+}
+
+/* DEV PANEL */
+#devPanel {
+  user-select: text;
+  border: black 5px solid;
+  width: 250px;
+  padding: 8px;
+}
+#devPanel button {
+  width: 220px;
+}
+#devPanel select {
+  width: 220px;
+}
+#devSplit {
+  user-select: text;
+}
+
+
+/* EXPERIMENTS PANEL */
+#experimentsPanel {
+  border: black 5px solid;
+  width: 200px;
+  padding: 8px;
+  display: none;
+}
+#experimentsPanel > h3 {
+  margin: 5px;
+}
+#experimentsPanel > button {
+  width: 180px;
+}
+
+/* ICONS PANEL */
+#iconPanel {
+  margin-left: 22px;
+  margin-top: 10px;
+  min-width: 320px;
+  height: 60px;
+}
+#iconItemsPanel {
+  display: flex;
+}
+.iconTimerText {
+  font-size: small;
+  margin-left: 5px;
+  width: auto;
+  display: none;
+  margin-top: 7px;
+}
+
+/* ACCUMULATOR PANEL */
+#accumulatorPanel {
+  display: flex;
+}
+#destructibleWallPhasingPanel {
+  display: flex;
+}
+#wallPhasingPanel {
+  display: flex;
+}
+#wallPhasingIcon, #destructibleWallPhasingIcon {
+  height: 30px;
+  width: 30px;
+}
+#wallPhasingCount, #destructibleWallPhasingCount {
+  padding-top: 6px;
+  margin-right: 15px;
+}
+
+.iconImg {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+#iconImgText {
+  margin-top: 7px;
+  display: none;
+}
+
+/* MAZE REQUIREMENTS PANEL */
+#mazeCompletionRequirementsPanel {
+  margin-left: 25px;
+  margin-top: 3px;
+  display: none;
+}
+#mazeCompletionRequirementsTilesVisitedPanel 
+#mazeCompletionRequirementsMazeKeysPanel {
+  display: flex;
+}
+
+.checkMark {
+  margin-top: 1px;
+  margin-left: 4px;
+  margin-right: 7px;
+  transform: rotate(45deg);
+  height: 8px;
+  width: 4px;
+  border-bottom: 3px solid #78b13f;
+  border-right: 3px solid #78b13f;
+}
+
+.xMark:after {
+  margin-top: -3px;
+  margin-right: 5px;
+  content: "\d7";
+  font-size: 22px;
+  color: red;
+  font-weight: bold;
+  max-height: 20px;
+}

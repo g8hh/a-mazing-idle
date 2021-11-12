@@ -540,6 +540,7 @@ var cnRegReplace = new Map([
     [/^Spawn rate: (.+) per tile$/, '生成率：每格 $1'],
     [/^Spawn rate: (.+) per tile connection$/, '生成率：$1 每格子连接'],
     [/^Spawn rate: (.+) per tile.$/, '生成率：每格子 $1。'],
+    [/^Spawn Rate: (.+) per tile.$/, '生成率：每格子 $1。'],
     [/^equivalent to (.+) tiles$/, '相当于 $1 个格子'],
     [/^Cost: (.+) points$/, '成本：$1 点数'],
     [/^Req: (.+) \/ (.+) elves$/, '成本：$1 \/ $2 精灵'],

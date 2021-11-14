@@ -226,7 +226,7 @@ var cnItems = {
     "Wall phasing storage: This allows user to manually walk through walls.": "墙壁相位存储：这允许用户手动穿过墙壁。",
     "Apple": "苹果",
     "BRAIN": "大脑",
-    "": "",
+    "The tile multiplier item will multiply the points earned from tile visits by 3.3x amount (upgradeable).": "格子乘数物品将使从格子访问中获得的点数乘以 3.3 倍（可升级）。",
     "": "",
     "": "",
     "": "",

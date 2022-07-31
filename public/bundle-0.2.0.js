@@ -1962,7 +1962,7 @@ var SpeedUpMazeItem = exports.SpeedUpMazeItem = function (_MazeItem) {
     }, {
         key: "getTooltipText",
         value: function getTooltipText(game) {
-            var speedUpMultiplier = game.upgrades.getUpgradeValue(_UpgradeConstants.UpgradeKey.SPEED_UP_MULTIPLIER_STRENGTH);
+            var speedUpMultiplier = _UserInterface.UserInterface.getDecimalPrettyPrintNumber(game.upgrades.getUpgradeValue(_UpgradeConstants.UpgradeKey.SPEED_UP_MULTIPLIER_STRENGTH), 2);
             var speedUpDuration = game.upgrades.getUpgradeValue(_UpgradeConstants.UpgradeKey.SPEED_UP_DURATION);
             var spawnRate = SpeedUpMazeItem.getItemSpawnProbability(game);
             return "The speed up item will increase the speed of all your bots by " + speedUpMultiplier + "x." + ("<br><br>Spawn rate: " + _UserInterface.UserInterface.getDecimalPrettyPrintNumber(spawnRate * 100, 2) + "% per tile") + ("<br>Duration: " + _UserInterface.UserInterface.getPrettyPrintNumber(speedUpDuration / 1000) + "s");
@@ -2133,8 +2133,18 @@ var AccumulatorManager = exports.AccumulatorManager = function () {
     _createClass(AccumulatorManager, [{
         key: "initAccumulators",
         value: function initAccumulators() {
+            this.resetAccumulators();
             for (var accumulatorKey in _AccumulatorConstants.AccumulatorKey) {
                 this.createAccumulator(accumulatorKey);
+            }
+        }
+    }, {
+        key: "resetAccumulators",
+        value: function resetAccumulators() {
+            for (var accumulatorKey in _AccumulatorConstants.AccumulatorKey) {
+                if (this.accumulatorMap.has(accumulatorKey)) {
+                    this.accumulatorMap.get(accumulatorKey).resetAccumulatorTimer();
+                }
             }
         }
     }, {
@@ -2759,6 +2769,7 @@ var Game = function (_Serializable) {
         key: "initManagerMaps",
         value: function initManagerMaps() {
             this.upgrades.initUpgrades();
+            this.powerUps.initPowerUpMap();
             this.accumulators.initAccumulators();
             this.stats.initStatsMap();
             this.experiment.initExperimentMaps();
@@ -4747,7 +4758,6 @@ var PowerUpManager = exports.PowerUpManager = function () {
 
         this.game = game;
         this.powerUpMap = new Map();
-        this.initPowerUpMap();
     }
 
     _createClass(PowerUpManager, [{
@@ -4760,8 +4770,19 @@ var PowerUpManager = exports.PowerUpManager = function () {
     }, {
         key: "initPowerUpMap",
         value: function initPowerUpMap() {
+            this.resetAllPowerUps();
             for (var powerUpKey in _PowerUpConstants.PowerUpKey) {
                 this.createPowerUp(powerUpKey);
+            }
+        }
+    }, {
+        key: "resetAllPowerUps",
+        value: function resetAllPowerUps() {
+            for (var powerUpKey in _PowerUpConstants.PowerUpKey) {
+                if (this.powerUpMap.has(powerUpKey)) {
+                    console.log('resetting: ' + powerUpKey);
+                    this.powerUpMap.get(powerUpKey).resetAllTimers();
+                }
             }
         }
     }, {
@@ -5066,7 +5087,7 @@ var RNGBotManager = exports.RNGBotManager = function () {
     }, {
         key: "isMovementLucky",
         value: function isMovementLucky(dirCount) {
-            if (!this.game.upgrades.isUpgraded(_UpgradeConstants.UpgradeKey.BOT_LUCKY_GUESS)) {
+            if (!this.game.upgrades.isUpgraded(_UpgradeConstants.UpgradeKey.BOT_LUCKY_GUESS) || !this.game.mazeRequirements.hasMetMazeCompletionRequirements()) {
                 return false;
             }
             var luckOdds = this.game.upgrades.getUpgradeValue(_UpgradeConstants.UpgradeKey.BOT_LUCKY_GUESS);
@@ -10376,7 +10397,6 @@ var DestructibleWallPhasingFrequencyUpgrade = exports.DestructibleWallPhasingFre
     }, {
         key: "getMaxUpgradeLevel",
         value: function getMaxUpgradeLevel() {
-            console.log(Math.floor(_UpgradeConstants.DESTRUCTIBLE_WALL_PHASING_FREQUENCY_BASE_RATE / _UpgradeConstants.DESTRUCTIBLE_WALL_PHASING_FREQUENCY_UPGRADE_DECREASE_AMOUNT) - 1);
             return Math.floor(_UpgradeConstants.DESTRUCTIBLE_WALL_PHASING_FREQUENCY_BASE_RATE / _UpgradeConstants.DESTRUCTIBLE_WALL_PHASING_FREQUENCY_UPGRADE_DECREASE_AMOUNT) - 1;
         }
     }]);
@@ -10893,7 +10913,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var BUTTON_UI_ID = 'buySpeedUpDurationUpgrade';
-var TOOLTIP_TEXT = 'The speed up item will stay active for a longer duration!  Even more points!';
+var TOOLTIP_TEXT = 'The speed up item will stay active for a longer duration.  Even more points.';
 
 var SpeedUpDurationUpgrade = exports.SpeedUpDurationUpgrade = function (_Upgrade) {
     _inherits(SpeedUpDurationUpgrade, _Upgrade);
@@ -10960,7 +10980,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var BUTTON_UI_ID = 'buySpeedUpMultiplierStrengthUpgrade';
-var TOOLTIP_TEXT = 'The speed up item is more powerful so bots move even faster!  More points!';
+var TOOLTIP_TEXT = 'The speed up item is more powerful so bots move even faster.  More points.';
 
 var SpeedUpMultiplierStrengthUpgrade = exports.SpeedUpMultiplierStrengthUpgrade = function (_Upgrade) {
     _inherits(SpeedUpMultiplierStrengthUpgrade, _Upgrade);
@@ -12456,6 +12476,7 @@ var emitEvent = function emitEvent(eventCategory, eventAction) {
     var eventLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     var eventValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
+    return;
     try {
         ga('send', {
             hitType: 'event',
